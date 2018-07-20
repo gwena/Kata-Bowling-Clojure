@@ -50,5 +50,6 @@
       score-game))
 
 (defn -main [& args]
-  (assert (not= 1 (count args) "Take only one argument: filename with line to score"))
+  (assert (= 1 (count args))
+          "Take only one argument: filename with line to score")
   (println (score-game-file (first args))))
