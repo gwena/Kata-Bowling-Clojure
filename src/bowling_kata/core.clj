@@ -40,13 +40,15 @@
                                (re-seq re-standard-frame)
                                (map second))
           last-frame (nth matches 4)
-          all-frames (concat standard-frames [last-frame])
-          all-throws (map frame->throws all-frames)]
-      (score-frames all-throws))))
+          all-frames (map frame->throws
+                          (concat standard-frames
+                                  [last-frame]))]
+      (score-frames all-frames))))
 
 (defn score-game-file [filename]
-  (-> (slurp filename)
-      (str/trim-newline)
+  (-> filename
+      slurp
+      str/trim-newline
       score-game))
 
 (defn -main [& args]
