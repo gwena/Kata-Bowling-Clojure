@@ -26,11 +26,12 @@
 
 (defn score-frames [all-frames]
   (loop [frames all-frames, acc 0]
-    (let [down-pins (apply + (first frames))]
-      (if (= 1 (count frames))
-        (+ acc down-pins)
-        (recur (rest frames)
-               (+ acc (score-frame down-pins frames)))))))
+    (let [[first-frame & remainder] frames
+          down-pins (apply + first-frame)]
+      (if (seq remainder)
+        (recur remainder
+               (+ acc (score-frame down-pins frames)))
+        (+ acc down-pins)))))
 
 (defn score-game [game]
   (let [matches (re-matches re-all-frames game)]
